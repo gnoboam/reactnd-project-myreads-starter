@@ -2,6 +2,7 @@ import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Book from './Book'
+import Shelf from './Bookshelf'
 //test book
 const books = [{
         title: 'To Kill a Mockingbird',
@@ -89,49 +90,10 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Currently Reading</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      <li>
-                        <Book book={books[0]} />
-                      </li>
-                      <li>
-                        <Book book={books[1]} />
-                      </li>
-                    </ol>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Want to Read</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      <li>
-                        <Book book={books[2]} />
-                      </li>
-                      <li>
-                      <Book book={books[3]} />
-                      </li>
-                    </ol>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Read</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      <li>
-                      <Book book={books[4]} />
-                      </li>
-                      <li>
-                      <Book book={books[5]} />
-                      </li>
-                      <li>
-                      <Book book={books[6]} />
-                      </li>
-                    </ol>
-                  </div>
-                </div>
-              </div>
+                <Shelf title="Currently Reading" books={books.filter(book => book.shelf === 'reading')} />
+                <Shelf title="Want to Read" books={books.filter(book => book.shelf === 'want to read')} />
+                <Shelf title="Read" books={books.filter(book => book.shelf === 'read')} />
+            </div>
             </div>
             <div className="open-search">
               <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
