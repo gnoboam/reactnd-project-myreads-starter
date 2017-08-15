@@ -3,6 +3,7 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import Book from './Book'
 import Shelf from './Bookshelf'
+import { Route, Link } from 'react-router-dom'
 //test book
 const books = [{
         title: 'To Kill a Mockingbird',
@@ -62,10 +63,10 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
+        <Route path="/search" render={() => (
           <div className="search-books">
             <div className="search-books-bar">
-              <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
+              <Link to="/"className="close-search" >Close</Link>
               <div className="search-books-input-wrapper">
                 {/* 
                   NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -83,23 +84,26 @@ class BooksApp extends React.Component {
               <ol className="books-grid"></ol>
             </div>
           </div>
-        ) : (
+        )} />
+
+        <Route exact path="/" render={() => (
           <div className="list-books">
-            <div className="list-books-title">
+          <div className="list-books-title">
               <h1>MyReads</h1>
-            </div>
-            <div className="list-books-content">
-              <div>
+          </div>
+          <div className="list-books-content">
+            <div>
                 <Shelf title="Currently Reading" books={books.filter(book => book.shelf === 'reading')} />
                 <Shelf title="Want to Read" books={books.filter(book => book.shelf === 'want to read')} />
                 <Shelf title="Read" books={books.filter(book => book.shelf === 'read')} />
             </div>
-            </div>
-            <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
-            </div>
           </div>
-        )}
+          
+          <div className="open-search">
+            <Link to="/search">Add a book</Link>
+          </div>
+          </div>
+          )} />
       </div>
     )
   }
